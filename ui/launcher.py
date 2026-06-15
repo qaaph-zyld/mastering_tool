@@ -44,13 +44,15 @@ _stop_event = threading.Event()
 
 
 def _create_icon() -> Image.Image:
-    """Generate a simple tray icon (64x64 purple circle with white M)."""
+    """Load the project icon.png or fall back to a generated icon."""
+    icon_path = PROJECT_ROOT / "icon.png"
+    if icon_path.exists():
+        return Image.open(icon_path).convert("RGBA").resize((64, 64), Image.LANCZOS)
+    # Fallback: purple circle with white M
     size = 64
     img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
-    # Purple circle background
     draw.ellipse([2, 2, size - 2, size - 2], fill=(138, 43, 226, 255))
-    # White "M" text
     try:
         from PIL import ImageFont
         font = ImageFont.truetype("arial.ttf", 36)
