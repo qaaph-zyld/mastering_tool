@@ -17,12 +17,20 @@ import pystray
 import requests
 from PIL import Image, ImageDraw
 
-# --- Config ---
-if getattr(sys, 'frozen', False):
-    # Running from PyInstaller bundle
-    PROJECT_ROOT = Path(sys._MEIPASS)
-else:
-    PROJECT_ROOT = Path(__file__).parent.parent.resolve()
+def _find_project_root() -> Path:
+    """Find the project root by looking for ui/server.py upward from the .exe or script."""
+    if getattr(sys, 'frozen', False):
+        start = Path(sys.executable).parent.resolve()
+    else:
+        start = Path(__file__).parent.parent.resolve()
+    # Check start dir and its parent for ui/server.py
+    for candidate in (start, start.parent):
+        if (candidate / "ui" / "server.py").exists():
+            return candidate
+    raise RuntimeError(f"Cannot find project root with ui/server.py near {start}")
+
+
+PROJECT_ROOT = _find_project_root()
 SERVER_SCRIPT = PROJECT_ROOT / "ui" / "server.py"
 HOST = "127.0.0.1"
 PORT = 5050

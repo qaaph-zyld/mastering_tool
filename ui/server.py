@@ -17,9 +17,12 @@ from flask import Flask, Response, jsonify, render_template, request, send_file
 IS_WINDOWS = platform.system() == "Windows"
 
 PROJECT_ROOT = Path(__file__).parent.parent.resolve()
-MASTER_DIR = PROJECT_ROOT / "music_tracks" / "raw_wav_files" / "master"
+RAW_WAV_DIR = PROJECT_ROOT / "music_tracks" / "raw_wav_files"
+MASTER_DIR = RAW_WAV_DIR / "master"
 UPLOAD_DIR = Path(tempfile.gettempdir()) / "mastering_toolshop_uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
+RAW_WAV_DIR.mkdir(parents=True, exist_ok=True)
+MASTER_DIR.mkdir(parents=True, exist_ok=True)
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
@@ -75,7 +78,8 @@ def api_upload():
     saved = UPLOAD_DIR / f.filename
     f.save(saved)
     # Also copy into project tree so outputs land in project master/
-    project_inbox = PROJECT_ROOT / "music_tracks" / "raw_wav_files" / f.filename
+    project_inbox = RAW_WAV_DIR / f.filename
+    project_inbox.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(saved, project_inbox)
     return jsonify({
         "ok": True,
