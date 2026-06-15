@@ -1,0 +1,42 @@
+=== FINAL VERIFICATION — gghoodrap ===
+Date: 2026-06-04 21:25:12 UTC
+
+--- Deliverable formats ---
+gghoodrap_MASTER.mp3:
+    codec_name=mp3
+    sample_fmt=fltp
+    sample_rate=44100
+    channels=2
+    bits_per_sample=0
+    duration=145.162449
+    size=5807587
+gghoodrap_MASTER_16.wav:
+    codec_name=pcm_s16le
+    sample_fmt=s16
+    sample_rate=44100
+    channels=2
+    bits_per_sample=16
+    duration=145.116281
+    size=25598590
+gghoodrap_MASTER_32f.wav:
+    codec_name=pcm_f32le
+    sample_fmt=flt
+    sample_rate=44100
+    channels=2
+    bits_per_sample=32
+    duration=145.116281
+    size=51197138
+
+--- Loudness / true peak ---
+gghoodrap_MASTER.mp3:
+        I:         -10.1 LUFS
+        LRA:         3.2 LU
+        Peak:       -1.2 dBFS
+gghoodrap_MASTER_16.wav:
+        I:         -10.0 LUFS
+        LRA:         3.3 LU
+        Peak:       -1.3 dBFS
+gghoodrap_MASTER_32f.wav:
+        I:         -10.0 LUFS
+        LRA:         3.3 LU
+        Peak:       -1.3 dBFS

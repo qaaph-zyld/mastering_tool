@@ -1,0 +1,9 @@
+DETERMINISM VERIFICATION — Keine_Zeit_zu_Verlieren
+Date: 2026-06-05 19:43:21 UTC
+Method: two independent full-pipeline runs, MD5 compared
+
+fc5ea63f62b5fdfa23e8de9f664ab154  master/Keine_Zeit_zu_Verlieren_MASTER_32f.wav
+3f90f43aafee48eb3aded70b090698c6  master/Keine_Zeit_zu_Verlieren_MASTER_16.wav
+1fe3440019db9be6223b82d466c90c25  master/Keine_Zeit_zu_Verlieren_MASTER.mp3
+
+Re-run MD5s matched run-1 for all three deliverables: IDENTICAL.

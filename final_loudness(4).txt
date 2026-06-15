@@ -1,0 +1,45 @@
+=== FINAL VERIFICATION — NE_SALJI_MI_PPISMO ===
+Date: 2026-05-28 18:24:02 UTC
+
+--- Deliverable formats ---
+NE_SALJI_MI_PPISMO_MASTER.mp3:
+    codec_name=mp3
+    sample_fmt=fltp
+    sample_rate=48000
+    channels=2
+    bits_per_sample=0
+    duration=281.472000
+    size=11259885
+NE_SALJI_MI_PPISMO_MASTER_16.wav:
+    codec_name=pcm_s16le
+    sample_fmt=s16
+    sample_rate=48000
+    channels=2
+    bits_per_sample=16
+    duration=281.439979
+    size=54036554
+NE_SALJI_MI_PPISMO_MASTER_32f.wav:
+    codec_name=pcm_f32le
+    sample_fmt=flt
+    sample_rate=48000
+    channels=2
+    bits_per_sample=32
+    duration=281.439979
+    size=108073066
+
+--- Loudness / true peak (all deliverables) ---
+NE_SALJI_MI_PPISMO_MASTER_32f.wav:
+        I:         -10.0 LUFS
+        LRA:         6.4 LU
+        Peak:       -1.4 dBFS
+NE_SALJI_MI_PPISMO_MASTER_16.wav:
+        I:         -10.0 LUFS
+        LRA:         6.4 LU
+        Peak:       -1.4 dBFS
+NE_SALJI_MI_PPISMO_MASTER.mp3:
+        I:         -10.0 LUFS
+        LRA:         6.4 LU
+        Peak:       -0.9 dBFS
+
+--- Determinism: 16-bit master MD5 (byte-reproducible from source) ---
+    a1e1836bf8d299df82cc6fd3a03db13b  master/NE_SALJI_MI_PPISMO_MASTER_16.wav

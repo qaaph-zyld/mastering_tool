@@ -1,0 +1,19 @@
+=== FINAL VERIFICATION — Under_My_Spell ===
+Date: 2026-05-25 17:39:56 UTC
+
+--- Loudness / true peak (all deliverables) ---
+
+Under_My_Spell_MASTER_32f.wav:
+        I:         -10.0 LUFS
+        LRA:         2.9 LU
+        Peak:       -1.4 dBFS
+
+Under_My_Spell_MASTER_16.wav:
+        I:         -10.0 LUFS
+        LRA:         2.9 LU
+        Peak:       -1.4 dBFS
+
+Under_My_Spell_MASTER.mp3:
+        I:         -10.0 LUFS
+        LRA:         2.9 LU
+        Peak:       -1.0 dBFS

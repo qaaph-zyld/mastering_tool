@@ -1,0 +1,43 @@
+============================================================
+ PRE-MASTER DIAGNOSTIC
+ Source: source/Hymn_to_Osiris-_Hardcore_Pop.wav
+ Date:   2026-05-23 21:11:58 UTC
+============================================================
+
+=== FORMAT ===
+codec_name=pcm_s16le
+sample_fmt=s16
+sample_rate=48000
+channels=2
+bits_per_sample=16
+duration=236.440000
+
+=== EBU R128 (loudness / LRA / true peak) ===
+    I:         -14.5 LUFS
+    Threshold: -24.7 LUFS
+  Loudness range:
+    LRA:         5.2 LU
+    Threshold: -34.6 LUFS
+
+=== ASTATS (peak / RMS / crest / DC offset) ===
+[Parsed_astats_0 @ 0x55988350c8c0] DC offset: 0.000130
+[Parsed_astats_0 @ 0x55988350c8c0] Peak level dB: -3.435442
+[Parsed_astats_0 @ 0x55988350c8c0] RMS level dB: -16.323691
+
+=== STEREO PHASE CORRELATION ===
+
+=== OCTAVE-BAND SPECTRAL ENERGY (RMS dB) ===
+  20-60Hz subbass      : -22.390191 dB
+  60-120Hz bass        : -21.406387 dB
+  120-250Hz lowmid     : -24.044674 dB
+  250-500Hz mid        : -25.977387 dB
+  500-1k mid           : -26.985289 dB
+  1k-2k upmid          : -30.492104 dB
+  2k-4k presence       : -32.652268 dB
+  4k-8k brilliance     : -31.543088 dB
+  8k-16k air           : -32.311042 dB
+  16k+ ultra           : -43.421124 dB
+
+============================================================
+ END DIAGNOSTIC
+============================================================

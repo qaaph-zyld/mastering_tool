@@ -1,0 +1,56 @@
+=== FINAL VERIFICATION — POLJAK_IS_BACK ===
+Date: 2026-05-26 22:37:13 UTC
+
+--- Source provenance (LOSSY) ---
+Original: POLJAK_IS_BACK_TRACK_BB2026.mp3  (320 kbps CBR MP3, 44.1 kHz)
+Decoded once to: POLJAK_IS_BACK_decoded_32f.wav (32-bit float, 44.1 kHz)
+
+--- Clipping fix (headline) ---
+Source sample peak : +2.44 dBFS  (inter-sample clipping baked into lossy master)
+Master WAV peak    : -1.6 dBTP   (clipping resolved by 4x oversampled limiter)
+Master MP3 peak    : -1.2 dBTP   (2nd-gen codec overshoot, still under -1.0 ceiling)
+
+--- Deliverable formats ---
+POLJAK_IS_BACK_MASTER.mp3:
+    codec_name=mp3
+    sample_fmt=fltp
+    sample_rate=44100
+    channels=2
+    bits_per_sample=0
+    duration=198.896327
+    size=7956942
+
+POLJAK_IS_BACK_MASTER_16.wav:
+    codec_name=pcm_s16le
+    sample_fmt=s16
+    sample_rate=44100
+    channels=2
+    bits_per_sample=16
+    duration=198.870204
+    size=35080782
+
+POLJAK_IS_BACK_MASTER_32f.wav:
+    codec_name=pcm_f32le
+    sample_fmt=flt
+    sample_rate=44100
+    channels=2
+    bits_per_sample=32
+    duration=198.870204
+    size=70161522
+
+--- Loudness / true peak (all deliverables) ---
+POLJAK_IS_BACK_MASTER_32f.wav:
+        I:         -10.1 LUFS
+        LRA:         7.0 LU
+        Peak:       -1.6 dBFS
+
+POLJAK_IS_BACK_MASTER_16.wav:
+        I:         -10.1 LUFS
+        LRA:         7.0 LU
+        Peak:       -1.6 dBFS
+
+POLJAK_IS_BACK_MASTER.mp3:
+        I:         -10.1 LUFS
+        LRA:         7.0 LU
+        Peak:       -1.2 dBFS
+

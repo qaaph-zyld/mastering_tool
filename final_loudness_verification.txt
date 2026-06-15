@@ -1,0 +1,16 @@
+============ FINAL DELIVERABLE LOUDNESS ============
+
+Kkodeks_drumovski_-_Cofi_Kkasper_MASTER_32f.wav
+    I:         -10.1 LUFS
+    LRA:         2.4 LU
+    Peak:       -1.4 dBFS
+
+Kkodeks_drumovski_-_Cofi_Kkasper_MASTER_16.wav
+    I:         -10.1 LUFS
+    LRA:         2.4 LU
+    Peak:       -1.4 dBFS
+
+Kkodeks_drumovski_-_Cofi_Kkasper_MASTER.mp3
+    I:         -10.1 LUFS
+    LRA:         2.4 LU
+    Peak:       -0.8 dBFS

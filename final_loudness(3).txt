@@ -1,0 +1,47 @@
+=== FINAL VERIFICATION — Real_Love_x_Posh_Princess ===
+Date: 2026-05-29 17:52:07 UTC
+
+--- Deliverable formats ---
+Real_Love_x_Posh_Princess_MASTER.mp3:
+    codec_name=mp3
+    sample_fmt=fltp
+    sample_rate=48000
+    channels=2
+    bits_per_sample=0
+    duration=274.392000
+    size=10976790
+Real_Love_x_Posh_Princess_MASTER_16.wav:
+    codec_name=pcm_s16le
+    sample_fmt=s16
+    sample_rate=48000
+    channels=2
+    bits_per_sample=16
+    duration=274.360000
+    size=52677292
+Real_Love_x_Posh_Princess_MASTER_32f.wav:
+    codec_name=pcm_f32le
+    sample_fmt=flt
+    sample_rate=48000
+    channels=2
+    bits_per_sample=32
+    duration=274.360000
+    size=105354448
+
+--- Loudness / true peak (all deliverables) ---
+Real_Love_x_Posh_Princess_MASTER_32f.wav:
+        I:         -10.0 LUFS
+        LRA:         3.1 LU
+        Peak:       -1.4 dBFS
+Real_Love_x_Posh_Princess_MASTER_16.wav:
+        I:         -10.0 LUFS
+        LRA:         3.1 LU
+        Peak:       -1.4 dBFS
+Real_Love_x_Posh_Princess_MASTER.mp3:
+        I:         -10.0 LUFS
+        LRA:         3.1 LU
+        Peak:       -1.0 dBFS
+
+--- Determinism: 16-bit master MD5 (byte-reproducible from source) ---
+    run 1: b9eb68153d060b83585a1b71b908f218  master/Real_Love_x_Posh_Princess_MASTER_16.wav
+    run 2: b9eb68153d060b83585a1b71b908f218  (re-run)
+    MATCH -> chain is fully deterministic / auditable

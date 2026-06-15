@@ -1,0 +1,15 @@
+Vocal Mastering Report — GGxMONSTAH
+Preset: warm_modern — Warm body, clear presence, light air, short plate for emotion. Safe under any contemporary instrumental.
+
+Sample rate: 44100 Hz   Duration: 156.73 s
+
+Stage          Peak     TruePk   RMS      Crest   LUFS-I
+------------------------------------------------------------
+0_input          +1.25    +1.25   -15.23  16.48   -11.34
+1_padded         -5.25    -5.25   -21.73  16.48   -17.84
+3_expanded       -4.59    -4.57   -21.75  17.16   -17.84
+6_compressed     -4.22    -4.17   -22.54  18.31   -18.43
+10_pre-limiter   -2.37    -2.30   -19.61  17.25   -15.36
+12_FINAL         -1.08    -0.94   -18.26  17.18   -14.00
+
+Mono compatibility (correlation): +0.986

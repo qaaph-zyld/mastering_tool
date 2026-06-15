@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Toolshop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mastering Toolshop</h1>
+            <p>Drag a WAV, pick a genre, run the pipeline.</p>
+        </header>
+
+        <section id="drop-zone" class="drop-zone">
+            <div class="drop-content">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <p>Drag & drop a .wav file here</p>
+                <p class="hint">or click to browse</p>
+            </div>
+            <input type="file" id="file-input" accept=".wav" hidden>
+        </section>
+
+        <section id="file-info" class="file-info hidden">
+            <span id="file-name"></span>
+            <span id="file-status"></span>
+        </section>
+
+        <section class="controls">
+            <div class="field">
+                <label for="genre">Genre Profile</label>
+                <select id="genre">
+                    <option value="">Default (House / Hardcore Pop)</option>
+                </select>
+            </div>
+
+            <div class="field inline">
+                <input type="checkbox" id="vocal-prep">
+                <label for="vocal-prep">Vocal Prep (de-ess, EQ, saturation)</label>
+            </div>
+
+            <div class="field">
+                <label for="output-name">Output Name</label>
+                <input type="text" id="output-name" placeholder="Auto from filename">
+            </div>
+
+            <button id="run-btn" disabled>Run Pipeline</button>
+        </section>
+
+        <section id="progress" class="progress hidden">
+            <div class="spinner"></div>
+            <span id="status-text">Running pipeline...</span>
+        </section>
+
+        <section id="log" class="log hidden">
+            <pre id="log-content"></pre>
+        </section>
+
+        <section id="downloads" class="downloads hidden">
+            <h3>Downloads</h3>
+            <ul id="download-list"></ul>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

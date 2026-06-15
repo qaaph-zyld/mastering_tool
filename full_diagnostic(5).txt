@@ -1,0 +1,47 @@
+============================================================
+ PRE-MASTER DIAGNOSTIC
+ Source: source/Under_My_Spell_-_Hardcore_Pop.wav
+ Date:   2026-05-25 17:41:47 UTC
+============================================================
+
+=== FORMAT ===
+codec_name=pcm_s16le
+sample_fmt=s16
+sample_rate=48000
+channels=2
+bits_per_sample=16
+duration=189.920000
+
+=== EBU R128 (loudness / LRA / true peak) ===
+    I:         -14.2 LUFS
+    Threshold: -24.2 LUFS
+  Loudness range:
+    LRA:         3.5 LU
+    Threshold: -34.2 LUFS
+
+=== ASTATS (peak / RMS / crest / DC offset) ===
+[Parsed_astats_0 @ 0x564c565f18c0] DC offset: 0.000183
+[Parsed_astats_0 @ 0x564c565f18c0] Peak level dB: -3.261610
+[Parsed_astats_0 @ 0x564c565f18c0] RMS level dB: -15.598898
+
+=== STEREO PHASE CORRELATION ===
+  frames: 8903
+  mean:   +0.724
+  min:    -0.589
+  max:    +0.998
+
+=== OCTAVE-BAND SPECTRAL ENERGY (RMS dB) ===
+  20-60Hz subbass      : -20.358724 dB
+  60-120Hz bass        : -20.703491 dB
+  120-250Hz lowmid     : -23.321396 dB
+  250-500Hz mid        : -27.979854 dB
+  500-1k mid           : -29.629351 dB
+  1k-2k upmid          : -30.741530 dB
+  2k-4k presence       : -30.387159 dB
+  4k-8k brilliance     : -30.536553 dB
+  8k-16k air           : -32.017637 dB
+  16k+ ultra           : -42.601457 dB
+
+============================================================
+ END DIAGNOSTIC
+============================================================

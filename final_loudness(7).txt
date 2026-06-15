@@ -1,0 +1,47 @@
+=== FINAL VERIFICATION — Grit_Tongue_BRATIJA ===
+Date: 2026-05-28 10:18:41 UTC
+
+--- Deliverable formats ---
+Grit_Tongue_BRATIJA_MASTER.mp3:
+    codec_name=mp3
+    sample_fmt=fltp
+    sample_rate=48000
+    channels=2
+    bits_per_sample=0
+    duration=62.280000
+    size=2492310
+
+Grit_Tongue_BRATIJA_MASTER_16.wav:
+    codec_name=pcm_s16le
+    sample_fmt=s16
+    sample_rate=48000
+    channels=2
+    bits_per_sample=16
+    duration=62.240000
+    size=11950252
+
+Grit_Tongue_BRATIJA_MASTER_32f.wav:
+    codec_name=pcm_f32le
+    sample_fmt=flt
+    sample_rate=48000
+    channels=2
+    bits_per_sample=32
+    duration=62.240000
+    size=23900368
+
+--- Loudness / true peak (all deliverables) ---
+Grit_Tongue_BRATIJA_MASTER_32f.wav:
+        I:          -9.9 LUFS
+        LRA:         4.4 LU
+        Peak:       -1.4 dBFS
+
+Grit_Tongue_BRATIJA_MASTER_16.wav:
+        I:          -9.9 LUFS
+        LRA:         4.4 LU
+        Peak:       -1.4 dBFS
+
+Grit_Tongue_BRATIJA_MASTER.mp3:
+        I:          -9.9 LUFS
+        LRA:         4.4 LU
+        Peak:       -0.9 dBFS
+

@@ -1,0 +1,47 @@
+============================================================
+ PRE-MASTER DIAGNOSTIC v2
+ Source: /home/claude/Chips_in_the_Oven_Hardcore_Pop_1_project/source/Chips_in_the_Oven_Hardcore_Pop_1.wav
+ Date:   2026-05-31 21:01:34 UTC
+============================================================
+
+=== FORMAT ===
+codec_name=pcm_f32le
+sample_fmt=flt
+sample_rate=48000
+channels=2
+bits_per_sample=32
+duration=173.159979
+
+=== EBU R128 (loudness / LRA / true peak) ===
+    I:         -13.4 LUFS
+    Threshold: -23.5 LUFS
+  Loudness range:
+    LRA:         3.9 LU
+    Threshold: -33.4 LUFS
+
+=== ASTATS (peak / RMS / crest / DC offset) ===
+[Parsed_astats_0 @ 0x560b346b0500] DC offset: 0.000031
+[Parsed_astats_0 @ 0x560b346b0500] Peak level dB: -2.132827
+[Parsed_astats_0 @ 0x560b346b0500] RMS level dB: -15.314793
+
+=== STEREO PHASE CORRELATION (per-frame aggregation) ===
+  mean correlation : +0.6794
+  min  correlation : -0.9059
+  max  correlation : +1.0000
+  frames analysed  : 16234
+
+=== OCTAVE-BAND SPECTRAL ENERGY (RMS dB) ===
+  20-60Hz subbass      : -21.640055 dB
+  60-120Hz bass        : -20.353535 dB
+  120-250Hz lowmid     : -22.736788 dB
+  250-500Hz mid        : -26.084450 dB
+  500-1k mid           : -26.450147 dB
+  1k-2k upmid          : -27.513186 dB
+  2k-4k presence       : -28.953027 dB
+  4k-8k brilliance     : -30.608559 dB
+  8k-16k air           : -32.764620 dB
+  16k+ ultra           : -42.538456 dB
+
+============================================================
+ END DIAGNOSTIC
+============================================================

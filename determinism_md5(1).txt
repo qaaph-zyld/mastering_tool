@@ -1,0 +1,8 @@
+DETERMINISM RECORD — MD5 across two independent pipeline runs
+Track: gghoodrap   Generated: 2026-06-04 21:25:12 UTC
+============================================================
+437605a853e3fd387aab558628492a44  master/gghoodrap_MASTER_32f.wav
+d485f8d824c9f47e08e9af24e19d34c4  master/gghoodrap_MASTER_16.wav
+637ae224cb692a2a877faaf2888be217  master/gghoodrap_MASTER.mp3
+All three confirmed BYTE-IDENTICAL to an independent second run.
+============================================================

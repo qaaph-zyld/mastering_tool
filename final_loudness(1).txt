@@ -1,0 +1,48 @@
+=== FINAL VERIFICATION — MONSTAH_demo_1_gg ===
+Date: 2026-06-01 10:38:01 UTC
+
+--- Source provenance ---
+Original: MP3 ~193 kbps (LOSSY origin), decoded to 32-bit float before processing
+
+--- Deliverable formats ---
+MONSTAH_MASTER.mp3:
+    codec_name=mp3
+    sample_fmt=fltp
+    sample_rate=48000
+    channels=2
+    bits_per_sample=0
+    duration=167.712000
+    size=6709644
+MONSTAH_MASTER_16.wav:
+    codec_name=pcm_s16le
+    sample_fmt=s16
+    sample_rate=48000
+    channels=2
+    bits_per_sample=16
+    duration=167.679979
+    size=32194778
+MONSTAH_MASTER_32f.wav:
+    codec_name=pcm_f32le
+    sample_fmt=flt
+    sample_rate=48000
+    channels=2
+    bits_per_sample=32
+    duration=167.679979
+    size=64389370
+
+--- Loudness / true peak (all deliverables) ---
+MONSTAH_MASTER_32f.wav:
+        I:         -10.0 LUFS
+        LRA:         2.3 LU
+        Peak:       -1.4 dBFS
+MONSTAH_MASTER_16.wav:
+        I:         -10.0 LUFS
+        LRA:         2.3 LU
+        Peak:       -1.4 dBFS
+MONSTAH_MASTER.mp3:
+        I:         -10.3 LUFS
+        LRA:         2.2 LU
+        Peak:       -1.6 dBFS
+
+--- Determinism: 16-bit master MD5 ---
+    4615f7d949f4a0c6cd6c976da4ada1aa  master/MONSTAH_MASTER_16.wav

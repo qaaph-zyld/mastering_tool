@@ -1,0 +1,47 @@
+============================================================
+ PRE-MASTER DIAGNOSTIC
+ Source: source/Grit_Tongue_BRATIJA_26.wav
+ Date:   2026-05-28 10:16:15 UTC
+============================================================
+
+=== FORMAT ===
+codec_name=pcm_s16le
+sample_fmt=s16
+sample_rate=48000
+channels=2
+bits_per_sample=16
+duration=62.240000
+
+=== EBU R128 (loudness / LRA / true peak) ===
+    I:         -15.7 LUFS
+    Threshold: -25.9 LUFS
+  Loudness range:
+    LRA:         5.6 LU
+    Threshold: -35.7 LUFS
+
+=== ASTATS (peak / RMS / crest / DC offset) ===
+[Parsed_astats_0 @ 0x556af04dd8c0] DC offset: 0.000418
+[Parsed_astats_0 @ 0x556af04dd8c0] Peak level dB: -4.763427
+[Parsed_astats_0 @ 0x556af04dd8c0] RMS level dB: -17.187482
+
+=== STEREO PHASE CORRELATION ===
+  frames: 2918
+  mean:   +0.548
+  min:    -0.398
+  max:    +0.998
+
+=== OCTAVE-BAND SPECTRAL ENERGY (RMS dB) ===
+  20-60Hz subbass      : -21.149564 dB
+  60-120Hz bass        : -22.994818 dB
+  120-250Hz lowmid     : -26.409506 dB
+  250-500Hz mid        : -31.430066 dB
+  500-1k mid           : -31.710259 dB
+  1k-2k upmid          : -30.427121 dB
+  2k-4k presence       : -29.713186 dB
+  4k-8k brilliance     : -31.409945 dB
+  8k-16k air           : -34.649046 dB
+  16k+ ultra           : -45.047876 dB
+
+============================================================
+ END DIAGNOSTIC
+============================================================

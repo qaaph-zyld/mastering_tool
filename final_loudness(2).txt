@@ -1,0 +1,19 @@
+FINAL LOUDNESS / TRUE-PEAK VERIFICATION
+Date: 2026-05-29 18:49:51 UTC
+Standard: -10 LUFS integrated (house), <= -1.0 dBTP
+========================================================
+
+>> natti_ohne_signal_dr_khans_MASTER_32f.wav
+    I:          -9.9 LUFS
+    LRA:         2.3 LU
+    Peak:       -1.4 dBFS
+
+>> natti_ohne_signal_dr_khans_MASTER_16.wav
+    I:          -9.9 LUFS
+    LRA:         2.3 LU
+    Peak:       -1.4 dBFS
+
+>> natti_ohne_signal_dr_khans_MASTER.mp3
+    I:         -10.1 LUFS
+    LRA:         2.3 LU
+    Peak:       -1.4 dBFS

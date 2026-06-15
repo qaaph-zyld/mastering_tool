@@ -1,0 +1,7 @@
+# Determinism record — native-format audio MD5 + raw SHA-256, run1 vs run2 (independent full-pipeline runs)
+SHA256 6066723ff7fdcbfb2d86bd69dd82980d9038a7b219f91f63535d5474781f9856  I_ccan_Tell_Hardcore_Pop_2_MASTER_32f.wav  [IDENTICAL across independent runs]
+SHA256 862b22d453582f1af1c2f0bb56181b29e5681fd0866cc220491d43f056a011f1  I_ccan_Tell_Hardcore_Pop_2_MASTER_16.wav  [IDENTICAL across independent runs]
+SHA256 597f5ca3eaac4bd48cde668d0115c680faf62312c67e3ccd849ebba5c8f00511  I_ccan_Tell_Hardcore_Pop_2_MASTER.mp3  [IDENTICAL across independent runs]
+AUDIO-MD5(f32 native) 3cb267efa467953417137b3f9f26868d  MASTER_32f.wav
+AUDIO-MD5(s16 native) e4d0d95ff1b9873abf0eef0292c6e30c  MASTER_16.wav
+=> FULL-PIPELINE DETERMINISM: PASS (byte-identical deliverables)

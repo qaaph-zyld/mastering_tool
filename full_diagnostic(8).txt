@@ -1,0 +1,61 @@
+============================================================
+ PRE-MASTER DIAGNOSTIC
+ Source: /home/claude/cofi_kkasper/source/Kkodeks_drumovski_-_Cofi_Kkasper.wav
+ Date  : 2026-05-20T18:29:32Z
+============================================================
+
+--- Container / stream ---
+  Duration: 00:02:49.92, bitrate: 1536 kb/s
+  Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 48000 Hz, 2 channels, s16, 1536 kb/s
+
+--- EBU R128 (integrated loudness / LRA / true peak) ---
+  Integrated loudness:
+    I:         -15.1 LUFS
+    Threshold: -25.1 LUFS
+  Loudness range:
+    LRA:         3.9 LU
+    Threshold: -35.1 LUFS
+    LRA low:   -17.3 LUFS
+    LRA high:  -13.4 LUFS
+  True peak:
+    Peak:       -3.8 dBFS
+
+--- astats (DC offset, sample peak, RMS, crest factor) ---
+[Parsed_astats_0 @ 0x557b7ca67800] Channel: 1
+[Parsed_astats_0 @ 0x557b7ca67800] DC offset: -0.000157
+[Parsed_astats_0 @ 0x557b7ca67800] Peak level dB: -3.771370
+[Parsed_astats_0 @ 0x557b7ca67800] RMS level dB: -16.731408
+[Parsed_astats_0 @ 0x557b7ca67800] Crest factor: 4.446332
+[Parsed_astats_0 @ 0x557b7ca67800] Channel: 2
+[Parsed_astats_0 @ 0x557b7ca67800] DC offset: -0.000246
+[Parsed_astats_0 @ 0x557b7ca67800] Peak level dB: -3.784885
+[Parsed_astats_0 @ 0x557b7ca67800] RMS level dB: -16.610566
+[Parsed_astats_0 @ 0x557b7ca67800] Crest factor: 4.378084
+[Parsed_astats_0 @ 0x557b7ca67800] Overall
+[Parsed_astats_0 @ 0x557b7ca67800] DC offset: -0.000246
+[Parsed_astats_0 @ 0x557b7ca67800] Peak level dB: -3.771370
+[Parsed_astats_0 @ 0x557b7ca67800] RMS level dB: -16.670567
+
+--- Stereo phase correlation (aphasemeter) ---
+phase samples=7965  mean=0.676  min=-0.823  max=0.998
+
+--- Octave-band RMS spectrum ---
+  20-60Hz subbass        : -22.252575 dB
+  60-120Hz bass          : -23.164211 dB
+  120-250Hz lowmid       : -24.799398 dB
+  250-500Hz mid          : -25.570292 dB
+  500-1k mid             : -26.829039 dB
+  1k-2k upmid            : -28.743818 dB
+  2k-4k presence         : -30.537013 dB
+  4k-8k brilliance       : -32.533436 dB
+  8k-16k air             : -35.772301 dB
+  16k+ ultra             : -48.085192 dB
+
+============================================================
+ Use these numbers to tune the chain in master_pipeline.sh:
+  - Integrated loudness  → pre-limit gain target (Stage E)
+  - True peak            → headroom strategy (Stage A)
+  - LRA                  → compression intensity (Stage C)
+  - Stereo phase min     → widening safety (Stage D)
+  - Spectral slope       → EQ moves (Stage B)
+============================================================

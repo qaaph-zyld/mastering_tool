@@ -1,0 +1,50 @@
+============================================================
+ PRE-MASTER DIAGNOSTIC v2
+ Source: source/gghoodrap.wav
+ Date:   2026-06-04 21:20:42 UTC
+============================================================
+
+=== FORMAT ===
+codec_name=pcm_f32le
+sample_fmt=flt
+sample_rate=44100
+channels=2
+bits_per_sample=32
+duration=145.116281
+
+=== EBU R128 (loudness / LRA / true peak) ===
+    I:          -7.9 LUFS
+    Threshold: -18.1 LUFS
+  Loudness range:
+    LRA:         4.4 LU
+    Threshold: -28.1 LUFS
+    LRA low:   -10.7 LUFS
+    LRA high:   -6.3 LUFS
+    Peak:        7.9 dBFS
+
+=== ASTATS (peak / RMS / crest / DC offset) ===
+[Parsed_astats_0 @ 0x5618109bb1c0] DC offset: -0.001298
+[Parsed_astats_0 @ 0x5618109bb1c0] Peak level dB: 7.909345
+[Parsed_astats_0 @ 0x5618109bb1c0] RMS level dB: -10.166905
+
+=== STEREO PHASE CORRELATION (per-frame aggregation) ===
+  mean correlation : +0.5815
+  min  correlation : -0.6643
+  max  correlation : +0.9963
+  frames analysed  : 12500
+
+=== OCTAVE-BAND SPECTRAL ENERGY (RMS dB) ===
+  20-60Hz subbass      : -16.670828 dB
+  60-120Hz bass        : -16.165832 dB
+  120-250Hz lowmid     : -17.137345 dB
+  250-500Hz mid        : -18.196756 dB
+  500-1k mid           : -20.323912 dB
+  1k-2k upmid          : -23.380847 dB
+  2k-4k presence       : -26.128792 dB
+  4k-8k brilliance     : -26.465769 dB
+  8k-16k air           : -28.538923 dB
+  16k+ ultra           : -42.076335 dB
+
+============================================================
+ END DIAGNOSTIC
+============================================================

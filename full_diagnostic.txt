@@ -1,0 +1,47 @@
+============================================================
+ PRE-MASTER DIAGNOSTIC
+ Source: source/Real_Love_x_Posh_Princess_Mashup.wav
+ Date:   2026-05-29 17:46:55 UTC
+============================================================
+
+=== FORMAT ===
+codec_name=pcm_s16le
+sample_fmt=s16
+sample_rate=48000
+channels=2
+bits_per_sample=16
+duration=274.360000
+
+=== EBU R128 (loudness / LRA / true peak) ===
+    I:         -16.3 LUFS
+    Threshold: -26.3 LUFS
+  Loudness range:
+    LRA:         3.4 LU
+    Threshold: -36.3 LUFS
+
+=== ASTATS (peak / RMS / crest / DC offset) ===
+[Parsed_astats_0 @ 0x558ff5a8f8c0] DC offset: -0.000093
+[Parsed_astats_0 @ 0x558ff5a8f8c0] Peak level dB: -4.066033
+[Parsed_astats_0 @ 0x558ff5a8f8c0] RMS level dB: -19.708036
+
+=== STEREO PHASE CORRELATION ===
+  frames: 12861
+  mean:   +0.784
+  min:    -0.196
+  max:    +1.000
+
+=== OCTAVE-BAND SPECTRAL ENERGY (RMS dB) ===
+  20-60Hz subbass      : -27.216684 dB
+  60-120Hz bass        : -26.016188 dB
+  120-250Hz lowmid     : -28.664567 dB
+  250-500Hz mid        : -31.793345 dB
+  500-1k mid           : -31.641351 dB
+  1k-2k upmid          : -31.618764 dB
+  2k-4k presence       : -31.587260 dB
+  4k-8k brilliance     : -29.428609 dB
+  8k-16k air           : -28.685932 dB
+  16k+ ultra           : -39.006030 dB
+
+============================================================
+ END DIAGNOSTIC
+============================================================

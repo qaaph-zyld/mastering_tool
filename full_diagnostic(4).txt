@@ -1,0 +1,47 @@
+============================================================
+ PRE-MASTER DIAGNOSTIC
+ Source: source/POLJAK_IS_BACK_decoded_32f.wav
+ Date:   2026-05-26 22:30:50 UTC
+============================================================
+
+=== FORMAT ===
+codec_name=pcm_f32le
+sample_fmt=flt
+sample_rate=44100
+channels=2
+bits_per_sample=32
+duration=198.870204
+
+=== EBU R128 (loudness / LRA / true peak) ===
+    I:         -10.2 LUFS
+    Threshold: -20.9 LUFS
+  Loudness range:
+    LRA:        10.2 LU
+    Threshold: -30.8 LUFS
+
+=== ASTATS (peak / RMS / crest / DC offset) ===
+[Parsed_astats_0 @ 0x56044e466240] DC offset: -0.001498
+[Parsed_astats_0 @ 0x56044e466240] Peak level dB: 2.438451
+[Parsed_astats_0 @ 0x56044e466240] RMS level dB: -12.274470
+
+=== STEREO PHASE CORRELATION ===
+  frames: 17130
+  mean:   +0.500
+  min:    -0.542
+  max:    +1.000
+
+=== OCTAVE-BAND SPECTRAL ENERGY (RMS dB) ===
+  20-60Hz subbass      : -18.285725 dB
+  60-120Hz bass        : -17.506587 dB
+  120-250Hz lowmid     : -19.347871 dB
+  250-500Hz mid        : -21.426440 dB
+  500-1k mid           : -23.596667 dB
+  1k-2k upmid          : -26.835333 dB
+  2k-4k presence       : -29.614410 dB
+  4k-8k brilliance     : -29.693395 dB
+  8k-16k air           : -30.184477 dB
+  16k+ ultra           : -41.239096 dB
+
+============================================================
+ END DIAGNOSTIC
+============================================================

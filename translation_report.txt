@@ -1,0 +1,16 @@
+============================================================
+ TRANSLATION MATRIX — Sieh_zu_Ex_Hardcore_Pop_x_dr_Khans_MASTER_16.wav
+============================================================
+  source true peak     : -1.4 dBTP
+  mono fold-down loss  : 0.1 LU (baseline-corrected) [PASS]
+  --- lossy codec round-trip (decode safety) ---
+  codec      inter-sample dBTP   sample-peak(lin)   real-clip
+  MP3 320  :     -1.1            0.883184          ok
+  AAC 256  :      2.7            0.923908          ok
+  Opus 160 :     -0.3            0.941286          ok
+  (AAC inter-sample is inflated by ffmpeg's native encoder; sample domain governs)
+------------------------------------------------------------
+  codec-clip gate (sample domain): PASS   inter-sample: FLAG   mono gate: PASS
+ VERDICT: FLAG
+TRANSLATION mono_loss=0.1 mp3_tp=-1.1 aac_tp=2.7 opus_tp=-0.3 mp3_sp=0.883184 aac_sp=0.923908 opus_sp=0.941286 verdict=FLAG
+============================================================
