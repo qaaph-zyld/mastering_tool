@@ -152,9 +152,10 @@ def api_run():
         for ext in ("_MASTER_32f.wav", "_MASTER_16.wav", "_MASTER.mp3"):
             fpath = MASTER_DIR / f"{name}{ext}"
             if fpath.exists():
+                fname = fpath.name
                 files.append({
-                    "name": f.name,
-                    "url": f"/api/download/{urllib.parse.quote(f.name)}",
+                    "name": fname,
+                    "url": f"/api/download/{urllib.parse.quote(fname)}",
                     "size": fpath.stat().st_size,
                 })
 
@@ -166,7 +167,17 @@ def api_run():
         })
         yield f"event: done\ndata: {done_payload}\n\n"
 
-    return Response(generate(), mimetype="text/event-stream")
+    def safe_generate():
+        try:
+            yield from generate()
+        except Exception as exc:
+            import traceback
+            yield f"data: [ERROR] {str(exc)}\n\n"
+            for line in traceback.format_exc().splitlines():
+                yield f"data: {line}\n\n"
+            yield f"event: done\ndata: {{\"error\":\"{str(exc)}\"}}\n\n"
+
+    return Response(safe_generate(), mimetype="text/event-stream")
 
 
 @app.route("/api/download/<path:filename>")
