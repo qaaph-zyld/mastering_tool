@@ -5,3 +5,8 @@ music_tracks/
 
 # Python
 __pycache__/
+
+# PyInstaller
+dist/
+build/
+*.spec
