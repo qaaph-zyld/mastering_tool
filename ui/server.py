@@ -4,6 +4,7 @@ Mastering Toolshop Web UI — Flask backend
 Handles WAV upload, runs wsl_run.sh via subprocess, streams stdout via SSE.
 """
 import os
+import platform
 import re
 import shutil
 import subprocess
@@ -12,6 +13,8 @@ import urllib.parse
 from pathlib import Path
 
 from flask import Flask, Response, jsonify, render_template, request, send_file
+
+IS_WINDOWS = platform.system() == "Windows"
 
 PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 MASTER_DIR = PROJECT_ROOT / "music_tracks" / "raw_wav_files" / "master"
@@ -40,10 +43,9 @@ def _safe_name(name: str) -> str:
 
 
 def _find_wsl_source_name(filename: str) -> str:
-    """Convert Windows temp path to WSL /mnt/ path."""
-    # filename comes from uploaded file; we stored it in Windows temp
-    # e.g. C:\Users\...\AppData\Local\Temp\mastering_toolshop_uploads\foo.wav
-    # Convert to /mnt/c/Users/.../AppData/Local/Temp/.../foo.wav
+    """Convert Windows temp path to WSL /mnt/ path, or return as-is on Linux."""
+    if not IS_WINDOWS:
+        return str(Path(filename).resolve())
     p = Path(filename).resolve()
     drive = p.drive.lower().rstrip(":")
     rest = str(p).replace(p.drive, "", 1).replace("\\", "/")
@@ -102,14 +104,21 @@ def api_run():
     def generate():
         env = os.environ.copy()
         env["VOCAL_PREP_ENABLE"] = "1" if vocal_prep == "1" else "0"
-        # WSL2 project dir
-        project_wsl = f"/mnt/d/Projects/Mastering_Toolshop"
-        project_win = str(PROJECT_ROOT / "music_tracks" / "raw_wav_files").replace("/", "\\")
-
-        cmd = [
-            "wsl", "-d", "Ubuntu", "-e", "bash", "-c",
-            f"cd {project_wsl} && VOCAL_PREP_ENABLE={env['VOCAL_PREP_ENABLE']} bash wsl_run.sh '{wsl_path}' {name} {genre} '{project_win}'"
-        ]
+        if IS_WINDOWS:
+            # WSL2 path
+            project_wsl = f"/mnt/d/Projects/Mastering_Toolshop"
+            project_win = str(PROJECT_ROOT / "music_tracks" / "raw_wav_files").replace("/", "\\")
+            cmd = [
+                "wsl", "-d", "Ubuntu", "-e", "bash", "-c",
+                f"cd {project_wsl} && VOCAL_PREP_ENABLE={env['VOCAL_PREP_ENABLE']} bash wsl_run.sh '{wsl_path}' {name} {genre} '{project_win}'"
+            ]
+        else:
+            # Native Linux (Docker/VPS)
+            project_dir = str(PROJECT_ROOT / "music_tracks" / "raw_wav_files")
+            cmd = [
+                "bash", "wsl_run.sh", wsl_path, name, genre, project_dir
+            ]
+            env["VOCAL_PREP_ENABLE"] = env["VOCAL_PREP_ENABLE"]
 
         yield f"data: [UI] Starting pipeline: genre={genre or 'default'}, vocal_prep={env['VOCAL_PREP_ENABLE']}\n\n"
         yield f"data: [UI] WSL source: {wsl_path}\n\n"
@@ -165,4 +174,6 @@ def api_download(filename):
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5050, debug=False)
+    # Bind to 0.0.0.0 in Docker, 127.0.0.1 locally
+    host = "0.0.0.0" if os.environ.get("FLASK_ENV") == "production" else "127.0.0.1"
+    app.run(host=host, port=5050, debug=False)
