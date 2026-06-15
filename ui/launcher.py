@@ -198,7 +198,19 @@ def _log(msg: str):
         pass
 
 
+def _set_windows_app_id():
+    """Register AppUserModelID for proper Windows taskbar icon."""
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            app_id = "qaaph-zyld.masteringtoolshop.1"
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
+        except Exception:
+            pass
+
+
 def main():
+    _set_windows_app_id()
     _log("Starting Mastering Toolshop...")
     try:
         python_exe = _get_python_exe()
