@@ -79,11 +79,11 @@ if [ "$USE_LSP_LIMITER" = "1" ]; then
   TH_LIM=$(db2lin "$TP_DBTP")
   ffmpeg -hide_banner -nostats -y -i "$TMP/e0.wav" -af "apad=pad_len=2048" "$TMP/e0p.wav" 2>/dev/null
   lv2apply -i "$TMP/e0p.wav" -o "$TMP/e1p.wav" -c th "$TH_LIM" -c ovs 16 -c boost 0 -c alr 1 -c lk 5 -c rt 5 -c dith 0 "$LSP_LIM_URI" 2>/dev/null
-  ffmpeg -hide_banner -nostats -y -i "$TMP/e1p.wav" -af "atrim=start_sample=372,asetpts=N/SR/TB" "$OUT" 2>/dev/null
+  ffmpeg -hide_banner -nostats -y -i "$TMP/e1p.wav" -af "atrim=start_sample=372,asetpts=N/SR/TB" -c:a pcm_f32le "$OUT" 2>/dev/null
 else
   ffmpeg -hide_banner -nostats -y -i "$TMP/e0.wav" \
     -af "aresample=$OS:resampler=soxr:precision=28,alimiter=limit=$ALIM_LIMIT:level=disabled,aresample=$SR:resampler=soxr:precision=28" \
-    "$OUT" 2>/dev/null
+    -c:a pcm_f32le "$OUT" 2>/dev/null
 fi
 
 TP=$(ffmpeg -hide_banner -nostats -i "$OUT" -af "ebur128=peak=true:framelog=quiet" -f null - 2>&1 | grep "Peak:" | tail -1 | awk '{print $2}')

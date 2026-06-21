@@ -36,7 +36,9 @@ OUT="$PROJECT_DIR/master"; VER="$PROJECT_DIR/verification"
 mkdir -p "$ANA" "$INT" "$OUT" "$VER"
 
 # ---- per-track calibration parameters (bracket pre-gain per source) ----
-PREGAIN_DB="${PREGAIN_DB:-6.3}"        # MUST be bracketed per track (undershoots from formula)
+# PREGAIN_DB: leave unset to auto-calibrate from stage-D LUFS measurement.
+# Set via env var to override with a manual value.
+PREGAIN_DB="${PREGAIN_DB:-}"
 MULTIBAND_ENABLE="${MULTIBAND_ENABLE:-0}"
 EQ_CHAIN="${EQ_CHAIN:-equalizer=f=200:t=q:w=1.2:g=-1.5,equalizer=f=80:t=q:w=1.4:g=0.8,equalizer=f=3500:t=q:w=1.5:g=0.6,equalizer=f=12000:t=q:w=0.7:g=1.5}"
 COMP="${COMP:-acompressor=threshold=-16dB:ratio=1.8:attack=20:release=180:makeup=1.5:knee=4}"
@@ -88,14 +90,51 @@ if [ "$BASS_MONO_ENABLE" = "1" ]; then
   CUR="$INT/04b_bassmono.wav"
 fi
 
-# --- STAGE E: pre-gain -> clip -> true-peak limit ---
-echo "[E] Pre-gain ${PREGAIN_DB}dB -> clip -> true-peak limit (${TARGET_TP_DBTP} dBTP)"
-ffmpeg -hide_banner -nostats -y -i "$CUR" -af "volume=${PREGAIN_DB}dB" -c:a pcm_f32le "$INT/05_pregain.wav" 2>/dev/null
-CEILING_DBTP="$TARGET_TP_DBTP" bash "$HERE/stage_clip_limit.sh" "$INT/05_pregain.wav" "$INT/06_limited.wav"
+# --- STAGE E: iterative pre-gain calibration -> clip -> true-peak limit ---
+# The clip/limit stage eats LUFS non-linearly. We iterate: apply pre-gain,
+# run clip/limit, measure output LUFS, adjust pre-gain, repeat until within
+# ±0.5 LU of target or max iterations reached. The limiter is always last,
+# so true-peak compliance is guaranteed on every iteration.
+if [ -z "${PREGAIN_DB:-}" ]; then
+    STAGE_D_LUFS=$(ffmpeg -hide_banner -nostats -i "$CUR" \
+        -af "ebur128=peak=true:framelog=quiet" -f null - 2>&1 | \
+        grep -E "^\s*I:" | tail -1 | awk '{print $2}')
+    PREGAIN_DB=$(python3 -c "print(round($TARGET_LUFS - $STAGE_D_LUFS, 1))")
+    PREGAIN_DB=$(python3 -c "print(max(0, min(24, $PREGAIN_DB)))")
+    echo "[E] Initial pre-gain estimate: ${PREGAIN_DB}dB (stage-D LUFS=${STAGE_D_LUFS}, target=${TARGET_LUFS})"
+else
+    echo "[E] Manual pre-gain override: ${PREGAIN_DB}dB"
+fi
+
+MAX_ITER=5
+for iter in $(seq 1 $MAX_ITER); do
+    echo "[E] Iteration ${iter}: pre-gain ${PREGAIN_DB}dB -> clip -> true-peak limit (${TARGET_TP_DBTP} dBTP)"
+    ffmpeg -hide_banner -nostats -y -i "$CUR" -af "volume=${PREGAIN_DB}dB" -c:a pcm_f32le "$INT/05_pregain.wav" 2>/dev/null
+    CEILING_DBTP="$TARGET_TP_DBTP" bash "$HERE/stage_clip_limit.sh" "$INT/05_pregain.wav" "$INT/06_limited.wav"
+
+    POST_LUFS=$(ffmpeg -hide_banner -nostats -i "$INT/06_limited.wav" \
+        -af "ebur128=peak=true:framelog=quiet" -f null - 2>&1 | \
+        grep -E "^\s*I:" | tail -1 | awk '{print $2}')
+    DELTA=$(python3 -c "print(round($TARGET_LUFS - $POST_LUFS, 1))")
+
+    if python3 -c "import sys; sys.exit(0 if abs($DELTA) <= 0.5 else 1)" 2>/dev/null; then
+        echo "[E] Converged: ${POST_LUFS} LUFS (target ${TARGET_LUFS}, delta ${DELTA} LU) after ${iter} iteration(s)"
+        break
+    fi
+
+    if [ "$iter" = "$MAX_ITER" ]; then
+        echo "[E] WARNING: Did not converge after ${MAX_ITER} iterations. Last: ${POST_LUFS} LUFS vs target ${TARGET_LUFS}"
+        break
+    fi
+
+    PREGAIN_DB=$(python3 -c "print(max(0, min(24, round($PREGAIN_DB + $DELTA, 1))))")
+    echo "[E] Adjusting pre-gain by +${DELTA}dB -> ${PREGAIN_DB}dB for next iteration"
+done
 
 # --- F: deliverables ---
 echo "[F] Deliverables"
-cp "$INT/06_limited.wav" "$OUT/${NAME}_MASTER_32f.wav"
+cp -f "$INT/06_limited.wav" "$OUT/${NAME}_MASTER_32f.wav" 2>/dev/null || \
+    echo "[F] WARNING: Could not overwrite ${NAME}_MASTER_32f.wav — file may be locked. Close any player and re-run."
 ffmpeg -hide_banner -nostats -y -i "$INT/06_limited.wav" \
   -af "aresample=osf=s16:dither_method=triangular_hp" -c:a pcm_s16le "$OUT/${NAME}_MASTER_16.wav" 2>/dev/null
 # E2: tighter-ceiling limiter feeding the MP3 path (content-dependent overshoot)
@@ -110,12 +149,12 @@ for f in "$OUT/${NAME}_MASTER_32f.wav" "$OUT/${NAME}_MASTER_16.wav"; do
   md5=$(ffmpeg -hide_banner -i "$f" -map 0:a -f md5 - 2>/dev/null | sed 's/MD5=//')
   echo "$md5  $(basename "$f")" >> "$VER/determinism_md5.txt"
 done
-bash "$HERE/qc_verify.sh" "$OUT/${NAME}_MASTER_16.wav" "$VER/qc" "$TARGET_TP_DBTP" >/dev/null
+TARGET_LUFS="$TARGET_LUFS" bash "$HERE/qc_verify.sh" "$OUT/${NAME}_MASTER_16.wav" "$VER/qc" "$TARGET_TP_DBTP" >/dev/null
 bash "$HERE/qc_translation.sh" "$OUT/${NAME}_MASTER_16.wav" "$VER/translation" >/dev/null
 
 echo ""
 echo "============ DONE ============"
 echo "  master/        : 32f, 16-bit, 320 MP3"
 echo "  verification/  : determinism_md5.txt, qc/, translation/"
-grep -E 'PSR GATE|true peak' "$VER/qc/qc_report.txt" 2>/dev/null | sed 's/^/  /'
+grep -E 'PSR GATE|true peak|LUFS GATE' "$VER/qc/qc_report.txt" 2>/dev/null | sed 's/^/  /'
 grep 'VERDICT' "$VER/translation/"*/dev/null 2>/dev/null || true

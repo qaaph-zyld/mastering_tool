@@ -60,6 +60,14 @@ printf "  PSR (estimate) : %s   [gate: >= 8 in loudest section]\n" "$PSR"
 python3 -c "import sys; sys.exit(0 if $PSR>=8 else 1)" 2>/dev/null \
   && echo "  PSR GATE       : PASS" || echo "  PSR GATE       : REVIEW (below 8 -> check loudest section)"
 
+# --- Loudness acceptance gate ---
+TARGET_LUFS="${TARGET_LUFS:--10.0}"
+LUFS_OK=$(python3 -c "print('PASS' if abs($I - $TARGET_LUFS) <= 0.5 else 'FAIL')")
+printf "  LUFS GATE      : %s   [target %.1f, measured %s, tolerance ±0.5 LU]\n" "$LUFS_OK" "$TARGET_LUFS" "$I"
+if [ "$LUFS_OK" = "FAIL" ]; then
+    echo "  ** LOUDNESS GATE FAIL: ${I} LUFS vs target ${TARGET_LUFS} LUFS — remaster required **"
+fi
+
 # --- 3. Codec round-trip true-peak re-check ---
 echo ""
 echo "[3] CODEC ROUND-TRIP TRUE-PEAK RE-CHECK (ceiling $CEIL dBTP)"
