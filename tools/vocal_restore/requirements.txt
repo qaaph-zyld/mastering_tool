@@ -1,0 +1,31 @@
+# Vocal restoration chain dependencies
+# Install with: pip install -r requirements.txt
+
+# ---- Core (required) ----
+numpy<2
+soundfile>=0.12
+librosa>=0.10
+tqdm>=4.65
+
+# ---- PyTorch (backend for all neural stages) ----
+torch>=2.3
+torchaudio>=2.3
+
+# ---- Stage: DeepFilterNet3 (de-room / de-noise) ----
+# Apache-2.0.  Real-time noise/reverb suppression.
+# Also available as Rust crate `deep_filter` for future daw-engine integration.
+deepfilternet>=0.5.0
+
+# ---- Stage: VoiceFixer (de-plastic / de-synthetic) ----
+# MIT. Targets synthetic/plastic vocal quality. Mode 2 = TTS-like (closest to SUNO).
+voicefixer>=0.1.0
+
+# ---- Stage: Apollo (de-codec / high-frequency restoration) ----
+# Sony / JusperLee.  Restores audio degraded by lossy codecs & generative pipelines.
+# Install from HuggingFace or GitHub:
+#   pip install git+https://github.com/JusperLee/Apollo.git
+# transformers>=4.40  # required by Apollo inference
+
+# ---- Stage: AudioSR (optional 48 kHz upsampling) ----
+# Off by default (VR_AUDIOSR=0). Only enable if source is band-limited.
+# audiosr>=0.1.0
