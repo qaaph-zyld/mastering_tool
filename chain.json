@@ -1,0 +1,33 @@
+{
+  "sample_rate": 48000.0,
+  "hpf_freq": 25.0,
+  "hpf_bypass": false,
+  "eq_bands": [
+    [
+      3500.0,
+      0.7,
+      1.2
+    ],
+    [
+      7000.0,
+      0.5,
+      1.0
+    ],
+    [
+      12000.0,
+      1.6,
+      0.7
+    ]
+  ],
+  "eq_bypass": false,
+  "comp_threshold_db": -14.0,
+  "comp_ratio": 1.5,
+  "comp_attack_ms": 25.0,
+  "comp_release_ms": 200.0,
+  "comp_bypass": false,
+  "clip_drive_db": 2.0,
+  "clip_bypass": true,
+  "limit_ceiling_db": -1.4116214857141456,
+  "limit_lookahead_ms": 20.0,
+  "limit_bypass": false
+}
