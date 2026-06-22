@@ -63,14 +63,22 @@ def ffprobe_format(path: Path) -> tuple[int, int, int, float]:
 
 
 def ebur128(path: Path) -> tuple[float, float, float]:
-    """Return (integrated_lufs, lra_lu, true_peak_dbtp)."""
+    """Return (integrated_lufs, lra_lu, true_peak_dbtp).
+
+    Parses the *summary* section of the ebur128 output to avoid
+    picking up intermediate frame values.
+    """
     out = run([
         str(FFMPEG), "-hide_banner", "-nostats", "-i", str(path),
         "-af", "ebur128=peak=true", "-f", "null", "-"
     ])
-    i_match = re.search(r"I:\s+([-\d.]+)\s+LUFS", out)
-    lra_match = re.search(r"LRA:\s+([\d.]+)\s+LU", out)
-    tp_match = re.search(r"Peak:\s+([-\d.]+)\s+dBTP", out)
+    # Split on "Summary:" and take the last chunk so we only parse the summary
+    parts = out.split("Summary:")
+    summary = parts[-1] if len(parts) > 1 else out
+
+    i_match = re.search(r"I:\s+([-\d.]+)\s+LUFS", summary)
+    lra_match = re.search(r"LRA:\s+([\d.]+)\s+LU", summary)
+    tp_match = re.search(r"Peak:\s+([-\d.]+)\s+dBFS", summary)
     i_val = float(i_match.group(1)) if i_match else 0.0
     lra_val = float(lra_match.group(1)) if lra_match else 0.0
     tp_val = float(tp_match.group(1)) if tp_match else 0.0
