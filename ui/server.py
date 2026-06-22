@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import tempfile
 import urllib.parse
+from datetime import datetime
 from pathlib import Path
 
 from flask import Flask, Response, jsonify, render_template, request, send_file
@@ -23,6 +24,8 @@ UPLOAD_DIR = Path(tempfile.gettempdir()) / "mastering_toolshop_uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
 RAW_WAV_DIR.mkdir(parents=True, exist_ok=True)
 MASTER_DIR.mkdir(parents=True, exist_ok=True)
+LOG_DIR = PROJECT_ROOT / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
@@ -124,28 +127,40 @@ def api_run():
             ]
             env["VOCAL_PREP_ENABLE"] = env["VOCAL_PREP_ENABLE"]
 
-        yield f"data: [UI] Starting pipeline: genre={genre or 'default'}, vocal_prep={env['VOCAL_PREP_ENABLE']}\n\n"
-        yield f"data: [UI] WSL source: {wsl_path}\n\n"
+        log_ts = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+        log_path = LOG_DIR / f"{log_ts}_{name}.log"
 
-        proc = subprocess.Popen(
-            cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            bufsize=1,
-            cwd=str(PROJECT_ROOT),
-        )
+        with open(log_path, "w", encoding="utf-8") as log_f:
+            header1 = f"[UI] Starting pipeline: genre={genre or 'default'}, vocal_prep={env['VOCAL_PREP_ENABLE']}"
+            header2 = f"[UI] WSL source: {wsl_path}"
+            log_f.write(header1 + "\n")
+            log_f.write(header2 + "\n")
 
-        try:
-            for line in proc.stdout:
-                line = line.rstrip("\n")
-                yield f"data: {line}\n\n"
-        except GeneratorExit:
-            proc.kill()
-            return
+            yield f"data: {header1}\n\n"
+            yield f"data: {header2}\n\n"
 
-        proc.wait()
-        rc = proc.returncode
+            proc = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                bufsize=1,
+                cwd=str(PROJECT_ROOT),
+            )
+
+            try:
+                for line in proc.stdout:
+                    line = line.rstrip("\n")
+                    log_f.write(line + "\n")
+                    log_f.flush()
+                    yield f"data: {line}\n\n"
+            except GeneratorExit:
+                proc.kill()
+                return
+
+            proc.wait()
+            rc = proc.returncode
+            log_f.write(f"[EXIT] rc={rc}\n")
 
         # Find output files
         files = []
