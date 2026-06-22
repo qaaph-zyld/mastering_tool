@@ -1,6 +1,6 @@
 # Mastering Report — Consolidated Index
 
-Generated: 2026-06-22T18:35:08.304794
+Generated: 2026-06-22T20:10:20.460251
 
 ## Canonical Pipelines
 
@@ -41,6 +41,7 @@ They may use a generic template or are pending pipeline creation.
 
 All numbered/variant artifacts are preserved in `archive/`.
 
+- **MASTERING**: 1 file(s)
 - **MASTERING_REPORT**: 29 file(s)
 - **before_after**: 2 file(s)
 - **determinism_md5**: 3 file(s)

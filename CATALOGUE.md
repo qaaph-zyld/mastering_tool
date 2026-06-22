@@ -1,6 +1,6 @@
 # Mastering Toolshop Catalogue
 
-Generated: 2026-06-22T18:35:50.385210
+Generated: 2026-06-22T20:10:20.593338
 
 This catalogue reflects the post-Phase-0 layout:
 - `pipelines/` — canonical per-track mastering pipelines
@@ -116,6 +116,10 @@ This catalogue reflects the post-Phase-0 layout:
 |---|---|
 | `build_index.py` | 4.68 KB |
 | `regenerate_catalogue.py` | 3.36 KB |
+| `vocal_restore/MODELS.md` | 1.57 KB |
+| `vocal_restore/remix.py` | 5.36 KB |
+| `vocal_restore/requirements.txt` | 1.04 KB |
+| `vocal_restore/restore.py` | 9.20 KB |
 
 ## Root Directory — Functional Scripts & Documentation
 
@@ -167,7 +171,7 @@ This catalogue reflects the post-Phase-0 layout:
 | `master_pipeline_v3.sh` | 6.22 KB |
 | `mastering_pipeline.sh` | 3.28 KB |
 | `mastering_pipeline_v3.tar.gz` | 15.85 KB |
-| `MASTERING_REPORT.md` | 3.48 KB |
+| `MASTERING_REPORT.md` | 3.51 KB |
 | `MASTERING_REPORT.txt` | 729 B |
 | `matchering_xcheck.py` | 2.55 KB |
 | `metadata_tag.sh` | 1.67 KB |
@@ -195,6 +199,7 @@ This catalogue reflects the post-Phase-0 layout:
 | `UNIFIED_EXECUTION_PLAN.md` | 26.74 KB |
 | `vocal_prep.sh` | 4.61 KB |
 | `vocal_prep_report_template.md` | 1.99 KB |
+| `vocal_restore.sh` | 6.12 KB |
 | `WSL2_SETUP.md` | 3.31 KB |
 | `wsl_run.sh` | 2.65 KB |
 
