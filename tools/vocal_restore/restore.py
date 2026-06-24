@@ -98,7 +98,27 @@ def stage_voicefixer(
         tmp_path = Path(tmp)
         in_path = tmp_path / "in.wav"
         out_path = tmp_path / "out.wav"
-        sf.write(str(in_path), audio, sr, subtype="FLOAT")
+
+        # VoiceFixer processes non-overlapping 30-second segments at 44100 Hz.
+        # If the input has a tiny tail after the last full segment, the STFT
+        # crashes (padding > input dimension). Trim to a whole multiple of the
+        # segment length before writing.
+        import librosa
+
+        work_audio = audio
+        work_sr = sr
+        if work_sr != 44100:
+            work_audio = librosa.resample(work_audio.T, orig_sr=work_sr, target_sr=44100).T
+            work_sr = 44100
+        seg_samples = 44100 * 30
+        n_samples = work_audio.shape[0]
+        n_full = (n_samples // seg_samples) * seg_samples
+        if n_full == 0:
+            raise RuntimeError(
+                f"VoiceFixer needs at least {seg_samples} samples (30s), got {n_samples}"
+            )
+        work_audio = work_audio[:n_full]
+        sf.write(str(in_path), work_audio, work_sr, subtype="FLOAT")
 
         vf = VoiceFixer()
         # Mode 2 = TTS-like (closest to SUNO synthetic artifacts)
@@ -109,8 +129,6 @@ def stage_voicefixer(
             out = out[:, None]
         # Resample back to source sr if VoiceFixer changed it.
         if out_sr != sr:
-            import librosa
-
             out = librosa.resample(out.T, orig_sr=out_sr, target_sr=sr).T
 
     if progress:

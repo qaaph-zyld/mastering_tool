@@ -10,4 +10,12 @@ __pycache__/
 dist/
 build/
 *.spec
-.clap_cache/  
+
+# Validation artifacts
+.clap_cache/
+*.egg-info/
+phase8_artifacts/
+phase8_*.log
+
+# Temporary one-off runner scripts
+run_phase8_*.bat

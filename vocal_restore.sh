@@ -35,6 +35,10 @@ VR_VOCALPREP="${VR_VOCALPREP:-0}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RESTORE_DIR="${SCRIPT_DIR}/tools/vocal_restore"
+
+# Make both the mastering_tool tools and the umbrella toolshop package importable.
+UMBRELLA_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+export PYTHONPATH="${SCRIPT_DIR}:${UMBRELLA_DIR}:${PYTHONPATH:-}"
 TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 if [[ -z "$INPUT" ]]; then

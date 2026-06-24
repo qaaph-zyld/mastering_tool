@@ -15,6 +15,7 @@ from clap_matcher import (
     match_track,
     run_clap_match,
 )
+from clap_matcher.clap_matcher import compute_embedding
 
 
 class TestCosineSimilarity:
@@ -34,6 +35,33 @@ class TestCosineSimilarity:
         assert cosine_similarity(a, b) == pytest.approx(-1.0, abs=1e-6)
 
 
+class TestComputeEmbedding:
+    def test_raw_tensor(self):
+        import torch
+
+        processor = MagicMock()
+        processor.return_value = {"input_features": torch.zeros(1, 1, 64, 64)}
+        model = MagicMock()
+        model.get_audio_features.return_value = torch.tensor([[1.0, 2.0, 3.0]])
+        emb = compute_embedding(model, processor, np.zeros(48000), device="cpu")
+        assert emb.shape == (1, 3)
+        np.testing.assert_allclose(np.linalg.norm(emb, axis=1), [1.0], rtol=1e-6)
+
+    def test_model_output_object(self):
+        import torch
+        from types import SimpleNamespace
+
+        processor = MagicMock()
+        processor.return_value = {"input_features": torch.zeros(1, 1, 64, 64)}
+        model = MagicMock()
+        model.get_audio_features.return_value = SimpleNamespace(
+            pooler_output=torch.tensor([[1.0, 2.0, 3.0]])
+        )
+        emb = compute_embedding(model, processor, np.zeros(48000), device="cpu")
+        assert emb.shape == (1, 3)
+        np.testing.assert_allclose(np.linalg.norm(emb, axis=1), [1.0], rtol=1e-6)
+
+
 class TestLoadReferenceLibrary:
     def test_loads_csv(self, tmp_path: Path):
         csv = tmp_path / "test_library.csv"
@@ -48,6 +76,18 @@ class TestLoadReferenceLibrary:
         assert entries[0].name == "Track_A"
         assert entries[0].metadata["integrated_lufs"] == "-8.0"
         assert entries[1].name == "Track_B"
+
+    def test_loads_real_csv_with_bom(self):
+        """Real CPU fixture: ensure the production REFERENCE_LIBRARY.csv loads."""
+        csv = Path(
+            "D:/Projects/Music-AI-Toolshop/mastering_tool/REFERENCE_LIBRARY.csv"
+        )
+        if not csv.exists():
+            pytest.skip("Production reference library not present")
+        entries = load_reference_library(csv)
+        assert len(entries) == 32
+        assert entries[0].name == "Cunami_-_Violet"
+        assert entries[1].name == "10_outta_10_MASTER_32f"
 
     def test_empty_csv(self, tmp_path: Path):
         csv = tmp_path / "empty.csv"

@@ -90,11 +90,19 @@ def compute_embedding(model: Any, processor: Any, audio: np.ndarray, device: str
     """Compute CLAP audio embedding."""
     import torch
 
-    inputs = processor(audios=audio, return_tensors="pt", sampling_rate=48000)
+    inputs = processor(audio=audio, return_tensors="pt", sampling_rate=48000)
     inputs = {k: v.to(device) for k, v in inputs.items()}
     with torch.no_grad():
         outputs = model.get_audio_features(**inputs)
-    emb = outputs.cpu().numpy()
+    # Newer transformers returns a model output object; older versions return a
+    # raw tensor. Extract the pooled embedding in both cases.
+    if hasattr(outputs, "pooler_output"):
+        emb = outputs.pooler_output
+    elif hasattr(outputs, "last_hidden_state"):
+        emb = outputs.last_hidden_state.mean(dim=1)
+    else:
+        emb = outputs
+    emb = emb.cpu().numpy()
     # Normalize to unit vector for cosine similarity
     norm = np.linalg.norm(emb, axis=1, keepdims=True)
     return emb / (norm + 1e-8)
@@ -112,12 +120,14 @@ def load_reference_library(csv_path: Path) -> List[ReferenceEntry]:
     in the Distro Kidea directory.
     """
     entries: List[ReferenceEntry] = []
-    distro = Path("D:/Projects/Music-AI-Toolshop/Distro Kidea")
+    distro = Path(
+        os.environ.get("DISTRO_KIDEA_DIR", "D:/Projects/Music-AI-Toolshop/Distro Kidea")
+    )
 
     if not csv_path.exists():
         raise FileNotFoundError(f"Reference library not found: {csv_path}")
 
-    with open(csv_path, "r", newline="", encoding="utf-8") as f:
+    with open(csv_path, "r", newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         for row in reader:
             name = row.get("name", "").strip()
@@ -142,7 +152,9 @@ def load_reference_library(csv_path: Path) -> List[ReferenceEntry]:
 
 def cache_dir() -> Path:
     """Return the CLAP embedding cache directory."""
-    cd = Path("D:/Projects/Music-AI-Toolshop/mastering_tool/.clap_cache")
+    cd = Path(
+        os.environ.get("CLAP_CACHE_DIR", "D:/Projects/Music-AI-Toolshop/mastering_tool/.clap_cache")
+    )
     cd.mkdir(parents=True, exist_ok=True)
     return cd
 
@@ -289,7 +301,12 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("track", type=Path, help="Input mastered track")
     parser.add_argument(
         "--library", "-l", type=Path,
-        default=Path("D:/Projects/Music-AI-Toolshop/mastering_tool/REFERENCE_LIBRARY.csv"),
+        default=Path(
+            os.environ.get(
+                "REFERENCE_LIBRARY_CSV",
+                "D:/Projects/Music-AI-Toolshop/mastering_tool/REFERENCE_LIBRARY.csv",
+            )
+        ),
         help="Path to REFERENCE_LIBRARY.csv",
     )
     parser.add_argument(

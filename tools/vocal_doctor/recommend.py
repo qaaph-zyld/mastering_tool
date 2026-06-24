@@ -12,7 +12,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from mastering_tool.tools.chain_dsl.schema import Chain, Compressor, Deesser, EQ, EQBand, HPF, Limiter
+try:
+    from ..chain_dsl.schema import Chain, Compressor, Deesser, EQ, EQBand, HPF, Limiter
+except ImportError:
+    from mastering_tool.tools.chain_dsl.schema import Chain, Compressor, Deesser, EQ, EQBand, HPF, Limiter
 
 from .diagnose import diagnose_vocal
 
