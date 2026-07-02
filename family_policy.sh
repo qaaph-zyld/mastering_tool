@@ -39,6 +39,17 @@ TARGET_TP_DBTP="-1.0"        # true peak ceiling, lossless/club path
 #   german_drill  :  -8.0 LUFS / -0.8 dBTP   (German drill; very dense, aggressive)
 #   serbian_drill :  -8.5 LUFS / -1.0 dBTP   (Serbian drill; bass-heavy, aggressive)
 #   house         :  -8.5 LUFS / -1.0 dBTP   (Club house; bass-heavy, wide stereo)
+#   popfolk       :  -9.0 LUFS / -1.0 dBTP   (Balkan pop-folk; vocal-forward)
+#
+# POP-FOLK PROFILE RATIONALE (measurement-anchored, Dunyaaa session):
+#   Balkan pop-folk commercial masters sit in the -8..-9.5 LUFS band; the
+#   seeded in-genre commercial reference (Cunami - "Violet") measures
+#   -8.0 LUFS / PSR 7.9. Pop-folk is vocal-forward with dense melismatic
+#   ornament in the 2-6 kHz register; pushing to the full -8.0 club level
+#   costs ~1 dB of PSR precisely where those ornament transients live.
+#   -9.0 LUFS holds within 1 LU of the commercial reference while preserving
+#   ~1 dB more short-term headroom for the vocal register. The -8.5 club
+#   profile remains available for pop-folk club cuts.
 #
 # NOTE: genre profiles are PRELIMINARY. Calibrate against 3-5 commercial
 # references per genre using reference_benchmark.sh before relying on them.
@@ -52,7 +63,8 @@ policy_profile() {
       german_drill)  echo 'TARGET_LUFS="-8.0";  TARGET_TP_DBTP="-0.8"';;
       serbian_drill) echo 'TARGET_LUFS="-8.5";  TARGET_TP_DBTP="-1.0"';;
       house)         echo 'TARGET_LUFS="-8.5";  TARGET_TP_DBTP="-1.0"';;
-      *) echo "echo 'unknown profile: $1 (use archival|club|streaming|hiphop|german_rap|german_drill|serbian_drill|house)' >&2; false";;
+      popfolk)       echo 'TARGET_LUFS="-9.0";  TARGET_TP_DBTP="-1.0"';;
+      *) echo "echo 'unknown profile: $1 (use archival|club|streaming|hiphop|german_rap|german_drill|serbian_drill|house|popfolk)' >&2; false";;
     esac
 }
 
@@ -95,6 +107,18 @@ policy_genre_presets() {
         # Extended sub, warm low-mids, open top, wider stereo feel
         echo 'EQ_CHAIN="equalizer=f=50:t=q:w=1.0:g=1.0,equalizer=f=200:t=q:w=1.2:g=-0.8,equalizer=f=3000:t=q:w=1.5:g=1.0,equalizer=f=12000:t=q:w=0.7:g=1.5"'
         echo 'COMP="acompressor=threshold=-16dB:ratio=1.8:attack=25:release=200:makeup=1.5:knee=4"'
+        ;;
+      popfolk)
+        # Vocal-forward pop-folk (Dunyaaa session). NOTE: pop-folk premasters
+        # are already mid/presence-forward vs the Hardcore-Pop shape, so the
+        # standard HF-ladder / presence lift does NOT apply. EQ kept minimal:
+        # club weight at 80, box control at 180, gentle air at 12k. Bass-mono
+        # ON @ 120 Hz is part of the pop-folk stereo policy (sub-register
+        # phase remediation) and only fires for this profile.
+        echo 'EQ_CHAIN="equalizer=f=80:t=q:w=1.2:g=1.2,equalizer=f=180:t=q:w=1.4:g=-0.8,equalizer=f=12000:t=q:w=0.7:g=1.2"'
+        echo 'COMP="acompressor=threshold=-16dB:ratio=1.8:attack=20:release=180:makeup=1.5:knee=4"'
+        echo 'BASS_MONO_ENABLE="1"'
+        echo 'BASS_MONO_FREQ="120"'
         ;;
       *) ;;  # default Hardcore Pop presets already in master_pipeline_v3.sh
     esac

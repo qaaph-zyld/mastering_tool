@@ -40,6 +40,7 @@ GENRES = [
     {"value": "german_drill", "label": "German Drill (-8.0 LUFS)"},
     {"value": "serbian_drill", "label": "Serbian Drill (-8.5 LUFS)"},
     {"value": "house", "label": "House (-8.5 LUFS)"},
+    {"value": "popfolk", "label": "Pop-Folk (-9.0 LUFS)"},
 ]
 
 
